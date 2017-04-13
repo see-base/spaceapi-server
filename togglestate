@@ -1,0 +1,95 @@
+#!/bin/bash
+saveIFS=$IFS
+IFS='=&'
+parm=($QUERY_STRING)
+IFS=$saveIFS
+for ((i=0; i<${#parm[@]}; i+=2))
+do
+    declare var_${parm[i]}=${parm[i+1]}
+done
+echo
+
+version="0.6"
+# Now with GitHub :D
+
+function getstate {
+  currentstate=$(grep open $1)
+  if [[ $currentstate == *"true"* ]]; then 
+    echo -e "\t\"status\": \"open\","
+  elif [[ $currentstate == *"false"* ]]; then
+  echo -e "\t\"status\": \"closed\","
+  fi
+}
+
+function changestate {
+        if ! [ -z $var_text ]; then var_state=$var_text; fi
+            echo -e "{\n\t\"space\": \"$var_space\"," # Create JSON
+            if [[ $(getstate $3) = $var_state || $var_state = "show" ]] ; then 
+                if [[ $(getstate $3) = $var_state ]]; then
+                    echo -e "\t\"change\": \"no change\",\n"
+                fi
+                echo "$(getstate $3)"
+            else
+                if [ $var_token = $1 ]; then
+                    if [ $var_state = "open" ]; then
+                        sed -i s/'"open": false'/'"open": true'/g $3
+                        sed -i s/CLOSED/OPEN/g $4
+                        echo -e "\t\"change\": \"open\","
+                    elif [ $var_state = "closed" ]; then
+                        sed -i s/'"open": true'/'"open": false'/g $3
+                        sed -i s/OPEN/CLOSED/g $4
+                        echo -e "\t\"change\": \"closed\","
+                    elif  [ $var_state = "help" ]; then
+                        echo -e "\t\"available_commands\": {\n\t\t\"open\":   \"Set status to 'open'\",\n\t\t\"closed\": \"Set status to closed\",\n\t\t\"show\":   \"Show current sace status\",\n\t\t\"help\":     \"Show this help\"\n\t},"
+                    else
+                        echo -e "\t\"change\": \"unchanged because of wrong given state information\",\n\t\"hint\": \"try 'help' as parameter for available options\","
+                    fi
+                    echo -e "\t\"access\": \"authorized\","
+                else
+                    echo -e "\t\"access\": \"unauthorized\","
+                    echo -e "\t\"error\": {\n\t\t\"reason\": \"invalid token\",\n\t\t\"token_used\": \"$var_token\"\n\t},"
+                fi
+            fi
+            echo -e "\t\"version\": \"$version\"\n}\n\n"
+        
+}
+
+# Die Konfiguration wird aus einer Seperaten nicht mit dem git gesyncten CSV Datei gelesen:
+IFS=':'
+declare -a config=( $( cat $(dirname $0)/spaceapi-server/config.csv ) )
+IFS=$saveIFS
+
+case $var_space in
+    ${config[0]})
+        # Eintrag fuer den IRC Bot: !see-base ["", "open", "closed"]
+        token="${config[1]}"
+        jsonfilename="${config[2]}"
+        mapfilename="${config[3]}"
+        changestate $token $var_space $jsonfilename $mapfilename
+        ;;
+    ${config[5]})
+        # Eintrag fuer den Slack channel: '/see-base show' s/show/open|closed|help/g
+        token="${config[6]}"
+        jsonfilename="${config[7]}"
+        mapfilename="${config[8]}"
+        changestate $token $var_space $jsonfilename $mapfilename
+        ;;
+    ${config[10]})
+        # Eintrag für den IRC Bot: !toolbox ["", "open", "closed"]
+        token="${config[11]}"
+        jsonfilename="${config[12]}"
+        mapfilename="${config[13]}"
+        changestate $token $var_space $jsonfilename $mapfilename
+        ;;
+    ${config[15]})
+        # Eintrag für den Slack Channel: '/space show' s/show/open|closed|help/g
+        token="${config[16]}"
+        jsonfilename="${config[17]}"
+        mapfilename="${config[18]}"
+        changestate $token $var_space $jsonfilename $mapfilename
+        ;;
+    *)
+        # Falls ein ungueltiger Space verwendet wird...
+        echo -e "{\n\t\"space\": \"no such space\",\n\t\"error\"[\n\t\t\"reason\": \"Space does not exisit in this script\",\n\t\t\"asked_for\": \"$var_space\"\n\t],\n\t\"version\": \"$version\"\n}"
+        ;;
+esac
