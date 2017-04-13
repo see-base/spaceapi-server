@@ -1,0 +1,4 @@
+hackerspace:token:/pfad/zur/json/datei:foo:
+:hackerspace2:token2:/andere/datei.json:bar:
+:hackerspace3:token:/foo/bar/:foo:
+:hackerspace4:token:/foo:bar:
