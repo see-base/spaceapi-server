@@ -1,4 +1,4 @@
 # spaceapi-server
-Server Script zum ändern der Einträge in der spaceapi für selber verwaltete Hackerspaces
+Das Server Script, das zum ändern der Einträge in der spaceapi für selber verwaltete Hackerspaces zuständig ist.
 
--> Work in progress
+Daten wie der Speicherort des JSON Files oder der verwendete Token wird in der config.csv definiert.
