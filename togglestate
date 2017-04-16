@@ -9,7 +9,7 @@ do
 done
 echo
 
-version="0.6"
+version="0.7"
 # Now with GitHub :D
 
 function getstate {
@@ -26,7 +26,7 @@ function changestate {
             echo -e "{\n\t\"space\": \"$var_space\"," # Create JSON
             if [[ $(getstate $3) = $var_state || $var_state = "show" ]] ; then 
                 if [[ $(getstate $3) = $var_state ]]; then
-                    echo -e "\t\"change\": \"no change\",\n"
+                    echo -e "\t\"state\": \"no change\",\n"
                 fi
                 echo "$(getstate $3)"
             else
@@ -34,15 +34,16 @@ function changestate {
                     if [ $var_state = "open" ]; then
                         sed -i s/'"open": false'/'"open": true'/g $3
                         sed -i s/CLOSED/OPEN/g $4
-                        echo -e "\t\"change\": \"open\","
+                        #nc
+                        echo -e "\t\"status\": \"open\","
                     elif [ $var_state = "closed" ]; then
                         sed -i s/'"open": true'/'"open": false'/g $3
                         sed -i s/OPEN/CLOSED/g $4
-                        echo -e "\t\"change\": \"closed\","
+                        echo -e "\t\"status\": \"closed\","
                     elif  [ $var_state = "help" ]; then
                         echo -e "\t\"available_commands\": {\n\t\t\"open\":   \"Set status to 'open'\",\n\t\t\"closed\": \"Set status to closed\",\n\t\t\"show\":   \"Show current sace status\",\n\t\t\"help\":     \"Show this help\"\n\t},"
                     else
-                        echo -e "\t\"change\": \"unchanged because of wrong given state information\",\n\t\"hint\": \"try 'help' as parameter for available options\","
+                        echo -e "\t\"status\": \"unchanged because of wrong given state information\",\n\t\"hint\": \"try 'help' as parameter for available options\","
                     fi
                     echo -e "\t\"access\": \"authorized\","
                 else
@@ -55,7 +56,7 @@ function changestate {
 }
 
 # Die Konfiguration wird aus einer Seperaten nicht mit dem git gesyncten CSV Datei gelesen:
-IFS=':'
+IFS='|'
 declare -a config=( $( cat $(dirname $0)/spaceapi-server/config.csv ) )
 IFS=$saveIFS
 
@@ -65,14 +66,16 @@ case $var_space in
         token="${config[1]}"
         jsonfilename="${config[2]}"
         mapfilename="${config[3]}"
-        changestate $token $var_space $jsonfilename $mapfilename
+        returnhost="${config[4]}"
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
     ${config[5]})
         # Eintrag fuer den Slack channel: '/see-base show' s/show/open|closed|help/g
         token="${config[6]}"
         jsonfilename="${config[7]}"
         mapfilename="${config[8]}"
-        changestate $token $var_space $jsonfilename $mapfilename
+        returnhost="${config[7]}"
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
     ${config[10]})
         # Eintrag für den IRC Bot: !toolbox ["", "open", "closed"]
