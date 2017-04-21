@@ -21,10 +21,6 @@ function getstate {
   fi
 }
 
-function timestamp {
-date +"%s"
-}
-
 function changestate {
         if ! [ -z $var_text ]; then var_state=$var_text; fi
             echo -e "{\n\t\"space\": \"$var_space\"," # Create JSON
