@@ -9,7 +9,7 @@ do
 done
 echo
 
-version="0.8"
+version="0.9"
 # Now with GitHub :D
 
 function getstate {
@@ -37,12 +37,14 @@ function changestate {
                         sed -i s/CLOSED/OPEN/g $4
                         echo -n "change" >/dev/udp/$5
                         echo -e "\t\"status\": \"open\","
+                        (exec "$6" "open")
                     elif [ $var_state = "closed" ]; then
                         sed -i s/'"open": true'/'"open": false'/g $3
                         sed -i "s/.*lastchange.*/        \"lastchange\": $(date +%s)/" $3
                         sed -i s/OPEN/CLOSED/g $4
                         echo -n "change" >/dev/udp/$5
                         echo -e "\t\"status\": \"closed\","
+                        (exec "$6" "closed")
                     elif  [ $var_state = "help" ]; then
                         echo -e "\t\"available_commands\": {\n\t\t\"open\":   \"Set status to 'open'\",\n\t\t\"closed\": \"Set status to closed\",\n\t\t\"show\":   \"Show current sace status\",\n\t\t\"help\":     \"Show this help\"\n\t},"
                     else
@@ -70,30 +72,32 @@ case $var_space in
         jsonfilename="${config[2]}"
         mapfilename="${config[3]}"
         returnhost="${config[4]}"
-        changestate $token $var_space $jsonfilename $mapfilename $returnhost
+        externalscript="${config[5]}"
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost $externalscript
         ;;
-    ${config[5]})
+    ${config[6]})
         # Eintrag fuer den Slack channel: '/see-base show' s/show/open|closed|help/g
-        token="${config[6]}"
-        jsonfilename="${config[7]}"
-        mapfilename="${config[8]}"
-        returnhost="${config[9]}"
-        changestate $token $var_space $jsonfilename $mapfilename $returnhost
+        token="${config[7]}"
+        jsonfilename="${config[8]}"
+        mapfilename="${config[9]}"
+        returnhost="${config[10]}"
+        externalscript="${config[11]}"
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost $externalscript
         ;;
-    ${config[10]})
+    ${config[12]})
         # Eintrag für den IRC Bot: !toolbox ["", "open", "closed"]
-        token="${config[11]}"
-        jsonfilename="${config[12]}"
-        mapfilename="${config[13]}"
-        returnhost="${config[14]}"
+        token="${config[13]}"
+        jsonfilename="${config[14]}"
+        mapfilename="${config[15]}"
+        returnhost="${config[16]}"
         changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
-    ${config[15]})
+    ${config[17]})
         # Eintrag für den Slack Channel: '/space show' s/show/open|closed|help/g
-        token="${config[16]}"
-        jsonfilename="${config[17]}"
-        mapfilename="${config[18]}"
-        returnhost="${config[19]}"
+        token="${config[18]}"
+        jsonfilename="${config[19]}"
+        mapfilename="${config[20]}"
+        returnhost="${config[21]}"
         changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
     *)
