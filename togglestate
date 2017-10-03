@@ -37,7 +37,7 @@ function changestate {
                         sed -i s/CLOSED/OPEN/g $4
                         echo -n "change" >/dev/udp/$5
                         echo -e "\t\"status\": \"open\","
-                        if [ -v $6 ]; then
+                        if [ -n $6 ]; then
                             (exec "$6" "open")
                         fi
                     elif [ $var_state = "closed" ]; then
@@ -46,7 +46,7 @@ function changestate {
                         sed -i s/OPEN/CLOSED/g $4
                         echo -n "change" >/dev/udp/$5
                         echo -e "\t\"status\": \"closed\","
-                        if [ -v $6 ]; then
+                        if [ -n $6 ]; then
                             (exec "$6" "closed")
                         fi
                     elif  [ $var_state = "help" ]; then
