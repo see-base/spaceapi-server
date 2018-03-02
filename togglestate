@@ -94,14 +94,16 @@ case $var_space in
         jsonfilename="${config[14]}"
         mapfilename="${config[15]}"
         returnhost="${config[16]}"
+        externalscript="${config[17]}"
         changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
-    ${config[17]})
+    ${config[18]})
         # Eintrag für den Slack Channel: '/space show' s/show/open|closed|help/g
-        token="${config[18]}"
-        jsonfilename="${config[19]}"
-        mapfilename="${config[20]}"
-        returnhost="${config[21]}"
+        token="${config[19]}"
+        jsonfilename="${config[20]}"
+        mapfilename="${config[21]}"
+        returnhost="${config[22]}"
+        externalscript="${config[23]}"
         changestate $token $var_space $jsonfilename $mapfilename $returnhost
         ;;
     *)
