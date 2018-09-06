@@ -9,7 +9,7 @@ do
 done
 echo
 
-version="0.9"
+version="0.10"
 # Now with GitHub :D
 
 function getstate {
@@ -95,7 +95,7 @@ case $var_space in
         mapfilename="${config[15]}"
         returnhost="${config[16]}"
         externalscript="${config[17]}"
-        changestate $token $var_space $jsonfilename $mapfilename $returnhost
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost $externalscript
         ;;
     ${config[18]})
         # Eintrag für den Slack Channel: '/space show' s/show/open|closed|help/g
@@ -104,7 +104,7 @@ case $var_space in
         mapfilename="${config[21]}"
         returnhost="${config[22]}"
         externalscript="${config[23]}"
-        changestate $token $var_space $jsonfilename $mapfilename $returnhost
+        changestate $token $var_space $jsonfilename $mapfilename $returnhost $externalscript
         ;;
     *)
         # Falls ein ungueltiger Space verwendet wird...
