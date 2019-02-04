@@ -24,6 +24,13 @@ else
     echo "#navButton .toggle:before { color: #fff; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
     echo "#tb-closed { display: blocked; } #tb-opened { display: none !important; }" > /var/www/bodensee.space/web/spaceapi/toolbox/spacestatus.css
     echo "closed" > /tmp/space-toolbox.log
-    curl -X POST -H 'Content-type: application/json' --data '{"text":"Toolbox geschlossen :cry:"}' https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null 
+arr[0]='Toolbox ist geschlossen :tb:'
+arr[1]=':tb: Toolbox ist zu.\nGeht weg!'
+arr[2]='Toolbox ist geschlossen :cry:'
+arr[3]='Toolbox ist jetzt zu :sad: :tb:'
+arr[4]=':tb: closed\ngo away'
+arr[5]='Toolbox ist jetzt müde und schläft\nKomm bald wieder!'
+arr[6]='Toolbox schließt jetzt.\n:tb: bis bald :tb:'
+   curl -X POST -H 'Content-type: application/json' --data "{'text':'${arr[$rand]}'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null 
 fi
 
