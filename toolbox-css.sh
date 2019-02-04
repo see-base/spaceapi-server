@@ -1,6 +1,6 @@
-echo $1 >> /tmp/foo
+echo "$(date) $1" >> /tmp/foo
 # Load config values
-source token.conf
+source /usr/lib/cgi-bin/spaceapi-server/token.conf
 # Space toolbox open/close:
 if [ $1 = "open" ]; then
     echo "#header h1 a.icon:before { color: lime; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
