@@ -9,7 +9,7 @@ if [ $1 = "open" ]; then
     echo "open" > /tmp/space-toolbox.log
 arr[0]='Toolbox ist offen :tb:'
 arr[1]=':tb: Toolbox ist offen.\nKomm vorbei!'
-arr[2]=':tb. offen!'
+arr[2]=':tb: offen!'
 arr[3]='Toolbox ist offen :tb:\nKomm vorbei und bastel was tolles!'
 arr[4]='Hallo erstmal...\nIch weiß jetzt garnicht, ob ihr das wusstet...\nAber die Toolbox...\ndie wäre jetzt übrigens...\nnicht mehr ganz so geschlossen, als Sie vorher war!'
 arr[5]='Hey, kommt vorbei. :tb:\nToolbox ist offen!'
