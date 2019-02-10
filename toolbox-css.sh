@@ -31,6 +31,7 @@ arr[3]='Toolbox ist jetzt zu :sad: :tb:'
 arr[4]=':tb: closed\ngo away'
 arr[5]='Toolbox ist jetzt müde und schläft\nKomm bald wieder!'
 arr[6]='Toolbox schließt jetzt.\n:tb: bis bald :tb:'
+rand=$[ $RANDOM % 5 ]
    curl -X POST -H 'Content-type: application/json' --data "{'text':'${arr[$rand]}'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null 
 fi
 
