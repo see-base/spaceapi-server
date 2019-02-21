@@ -5,7 +5,7 @@ function randomLine {
     local selectedLine=''
     local i=1
     
-    while read line; do
+    while read -r line; do
     
         # If line is empty, ignore.
         if [ -z "$line" ]; then
