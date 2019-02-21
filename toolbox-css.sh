@@ -37,12 +37,12 @@ if [ $1 = "open" ]; then
     echo "#navButton .toggle:before { color: lime; }" >> /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
     echo "#tb-opened { display: blocked; } #tb-closed { display: none !important; }" > /var/www/bodensee.space/web/spaceapi/toolbox/spacestatus.css
     echo "open" > /tmp/space-toolbox.log
-    curl -X POST -H 'Content-type: application/json' --data "{'text':'$(randomLine 'messages_open.txt')'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 > /dev/null
+    curl -X POST -H 'Content-type: application/json' --data "{'text':'$(randomLine '/usr/lib/cgi-bin/spaceapi-server/messages_open.txt')'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 > /dev/null
 else
     echo "#header h1 a.icon:before { color: inherit; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
     echo "#navButton .toggle:before { color: #fff; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
     echo "#tb-closed { display: blocked; } #tb-opened { display: none !important; }" > /var/www/bodensee.space/web/spaceapi/toolbox/spacestatus.css
     echo "closed" > /tmp/space-toolbox.log
-    curl -X POST -H 'Content-type: application/json' --data "{'text':'$(randomLine 'messages_closed.txt')'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null 
+    curl -X POST -H 'Content-type: application/json' --data "{'text':'$(randomLine '/usr/lib/cgi-bin/spaceapi-server/messages_closed.txt')'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null 
 fi
 
