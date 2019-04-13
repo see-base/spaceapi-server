@@ -60,7 +60,7 @@ function changestate {
                     echo -e "\t\"error\": {\n\t\t\"reason\": \"invalid token\",\n\t\t\"token_used\": \"$var_token\"\n\t},"
                 fi
             fi
-            echo -e "\t\"version\": \"$version\"\n}\n\n"
+            echo -e "\t\"version\": \"$version\"\n}\n"
         
 }
 
