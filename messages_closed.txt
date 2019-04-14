@@ -1,7 +1,7 @@
-:x: Toolbox ist geschlossen :tb:
-:x: Toolbox ist zu.:tb:\nGeht weg!
-:x: Toolbox ist geschlossen :cry:
-:x: Toolbox ist jetzt zu :sad: :tb:
-:x: :tb: closed\ngo away
-:x: Toolbox ist jetzt müde und schläft\nKomm bald wieder!
-:x: Toolbox schließt jetzt.\n:tb: bis bald :tb:
+❌ Toolbox ist geschlossen :tb:
+❌ Toolbox ist zu.:tb:\nGeht weg!
+❌ Toolbox ist geschlossen :cry:
+❌ Toolbox ist jetzt zu :sad: :tb:
+❌ :tb: closed\ngo away
+❌ Toolbox ist jetzt müde und schläft\nKomm bald wieder!
+❌ Toolbox schließt jetzt.\n:tb: bis bald :tb:
