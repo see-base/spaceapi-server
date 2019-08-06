@@ -50,7 +50,7 @@ function changestate {
                             (exec "$6" "closed")
                         fi
                     elif  [ $var_state = "help" ]; then
-                        echo -e "\t\"available_commands\": {\n\t\t\"open\":   \"Set status to 'open'\",\n\t\t\"closed\": \"Set status to closed\",\n\t\t\"show\":   \"Show current sace status\",\n\t\t\"help\":     \"Show this help\"\n\t},"
+                        echo -e "\t\"available_commands\": {\n\t\t\"open\":   \"Set status to 'open'\",\n\t\t\"closed\": \"Set status to closed\",\n\t\t\"show\":   \"Show current space status\",\n\t\t\"help\":     \"Show this help\"\n\t},"
                     else
                         echo -e "\t\"status\": \"unchanged because of wrong given state information\",\n\t\"hint\": \"try 'help' as parameter for available options\","
                     fi
