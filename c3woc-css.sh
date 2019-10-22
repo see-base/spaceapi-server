@@ -33,10 +33,10 @@ function randomLine {
 if [ $1 = "open" ]; then
     echo "#header h1 a.icon:before { color: lime; }" > /var/www/bodensee.space/web/spaceapi/c3woc/space_api.css
     echo "#navButton .toggle:before { color: lime; }" >> /var/www/bodensee.space/web/spaceapi/c3woc/space_api.css
-    echo "#waffel-available, #space-opened { display: blocked; } #no-waffles, #space-closed { display: none !important; }" > /var/www/bodensee.space/web/spaceapi/c3woc/spacestatus.css
+    echo "#waffel-available, #space-opened { display: blocked; } #no-waffles, #space-closed { display: none; }" > /var/www/bodensee.space/web/spaceapi/c3woc/spacestatus.css
 else
     echo "#header h1 a.icon:before { color: inherit; }" > /var/www/bodensee.space/web/spaceapi/c3woc/space_api.css
     echo "#navButton .toggle:before { color: #fff; }" > /var/www/bodensee.space/web/spaceapi/c3woc/space_api.css
-    echo "#no-waffles, #space-closed { display: blocked; } #waffel-available, #space-opened { display: none !important; }" > /var/www/bodensee.space/web/spaceapi/c3woc/spacestatus.css
+    echo "#no-waffles, #space-closed { display: blocked; } #waffel-available, #space-opened { display: none; }" > /var/www/bodensee.space/web/spaceapi/c3woc/spacestatus.css
 fi
 
