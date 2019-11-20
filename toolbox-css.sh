@@ -49,7 +49,7 @@ else
     echo "toolbox_open=false" > /var/www/bodensee.space/web/spaceapi/toolbox/space-toolbox.conf
     echo "#header h1 a.icon:before { color: inherit; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
     echo "#navButton .toggle:before { color: #fff; }" > /var/www/bodensee.space/web/spaceapi/toolbox/space_api.css
-    echo "#tb-closed, space-closed { display: block; } #tb-opened, space-opened { display: none; }" > /var/www/bodensee.space/web/spaceapi/toolbox/spacestatus.css
+    echo "#tb-closed, #space-closed { display: block; } #tb-opened, #space-opened { display: none; }" > /var/www/bodensee.space/web/spaceapi/toolbox/spacestatus.css
     if [ "$toolbox_open" = true ]; then curl -X POST -H 'Content-type: application/json' --data "{'text':'$(randomLine '/usr/lib/cgi-bin/spaceapi-server/messages_closed.txt')'}" https://hooks.slack.com/services/$TOKEN1/$TOKEN2/$TOKEN3 >/dev/null;  fi
 fi
 
